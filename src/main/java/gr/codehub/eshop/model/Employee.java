@@ -11,8 +11,6 @@ import java.util.List;
 @Data
 public class Employee  extends Person {
 
-
-
     @OneToMany(mappedBy = "employee")
-private List<Customer> customers;
+    private List<Customer> customers;
 }

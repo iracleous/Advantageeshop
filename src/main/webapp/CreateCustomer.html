@@ -1,10 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
-$END$
+
+
+    <form onSubmit="return false">
+      <input type="text" name="name" id = "name" placeholder="name"><br />
+      <input type="number" name="age" id="age" placeholder="age" ><br />
+      <input type="text" name="email" id="email" placeholder="email"><br />
+         <button type="button" onclick="sendDataToServer()">Create customer</button>
+    </form>
+
+<div id="results"></div>
+
+<script>
+    function sendDataToServer() {
+
+        var stringData = '{"name":"' + document.getElementById("name").value + '",' +
+            '"age":' + document.getElementById("age").value + ',' +
+            '"email":"' + document.getElementById("email").value + '"' +
+            '}'
+
+        var url = "http://localhost:8080/eshop-1.0-SNAPSHOT/api/customer"
+        var method = "POST"
+
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("results").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open(method, url, true);
+        xmlhttp.setRequestHeader("Content-type", "text/json");
+        xmlhttp.send(stringData);
+    }
+</script>
+
+
+
+
 </body>
 </html>

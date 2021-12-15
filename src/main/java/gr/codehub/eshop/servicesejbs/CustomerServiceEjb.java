@@ -1,28 +1,45 @@
-package gr.codehub.eshop.ejb;
+package gr.codehub.eshop.servicesejbs;
 
+import gr.codehub.eshop.dto.CustomerDto;
 import gr.codehub.eshop.model.Customer;
+import gr.codehub.eshop.repositoryejb.CustomerRepositoryEjb;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Stateless
-public class CustomerEjb {
+public class CustomerServiceEjb {
    @EJB
-    private RepoEjb repoEjb;
+    private CustomerRepositoryEjb customerRepositoryEjb;
 
-    public long saveCustomer(String name) throws Exception{
+    public CustomerDto saveCustomer(CustomerDto customerDto) throws Exception{
 
-        return repoEjb.saveCustomer(name);
+        //validation of customerDto
+
+        Customer customer = customerDto.createCustomer();
+        customerRepositoryEjb.saveCustomer(customer);
+        CustomerDto returnCustomerDto = new CustomerDto(customer);
+        return returnCustomerDto;
     }
 
-    public Customer getCustomer(long custId) throws Exception{
-        return   repoEjb.getCustomer(custId);
+    public CustomerDto getCustomer(long custId) throws Exception{
+        Customer customer = customerRepositoryEjb.getCustomer(custId);
+
+        //validation of the received data from db
+
+        return  new CustomerDto(customer) ;
     }
 
 
-    public List<Customer> getCustomer() throws Exception{
-        return    repoEjb.getCustomer();
+    public List<CustomerDto> getCustomer() throws Exception{
+
+        return   customerRepositoryEjb
+                .getCustomer()
+                .stream()
+                .map(CustomerDto::new)
+                .collect(Collectors.toList());
     }
 
 

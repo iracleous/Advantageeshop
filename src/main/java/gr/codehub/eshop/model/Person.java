@@ -15,9 +15,9 @@ public class Person {
     private Long id;
 
     private String name;
+    private String address;
     private LocalDate regDate;
-
     private int age;
-
     private String Email;
+    private String password;
 }
