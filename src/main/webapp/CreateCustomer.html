@@ -32,11 +32,13 @@
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("results").innerHTML = this.responseText;
+
+                returnValue = this.responseText
+                document.getElementById("results").innerHTML = JSON.stringify(returnValue);
             }
         };
         xmlhttp.open(method, url, true);
-        xmlhttp.setRequestHeader("Content-type", "text/json");
+        xmlhttp.setRequestHeader("Content-type", "application/json;charset=UTF-8");
         xmlhttp.send(stringData);
     }
 </script>

@@ -1,10 +1,12 @@
 package gr.codehub.eshop.resources;
 
+import gr.codehub.eshop.dto.ApiResult;
 import gr.codehub.eshop.dto.CustomerDto;
 import gr.codehub.eshop.servicesejbs.CustomerServiceEjb;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @Path("/")
@@ -22,64 +24,64 @@ public class CustomerResource {
 
     @Path("/customer")
     @GET
-    @Produces("text/json")
-    public List<CustomerDto> getCustomer() {
+    @Produces(MediaType.APPLICATION_JSON)
+    public ApiResult<List<CustomerDto>> getCustomer() {
         try {
             List<CustomerDto> customers =   customerEjb.getCustomer();
-             return   customers;
+             return  new ApiResult<>(customers,"success", 200) ;
         } catch (Exception e) {
-            return null;
+            return new ApiResult<>(null,e.getMessage(), 500) ;
         }
     }
 
     @Path("/customer")
     @POST
-    @Consumes("text/json")
-    @Produces("text/json")
-    public CustomerDto getCustomers(CustomerDto customer) {
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public ApiResult<CustomerDto> getCustomers(CustomerDto customer) {
         try {
-               return   customerEjb.saveCustomer(customer);
+            return new ApiResult<>(customerEjb.saveCustomer(customer),"success", 200)   ;
         } catch (Exception e) {
-            return null;
+            return new ApiResult<>(null,e.getMessage(), 500) ;
         }
     }
 
     @Path("/customer/{customerId}")
     @GET
-    @Produces("text/json")//
-    public CustomerDto getCustomers(@PathParam("customerId")  long customerId) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public ApiResult<CustomerDto> getCustomers(@PathParam("customerId")  long customerId) {
         try {
 
             CustomerDto customerDto =  customerEjb.getCustomer(customerId);
-              return customerDto;
+            return new ApiResult<>(customerDto,"success", 200) ;
         } catch (Exception e) {
-            return null;
+            return new ApiResult<>(null,e.getMessage(), 500) ;
         }
     }
 
 
     @Path("/customer/{customerId}")
     @PUT
-    @Consumes("text/json")
-    @Produces("text/json")//
-    public CustomerDto updateCustomers(@PathParam("customerId") long customerId, CustomerDto customerDto ) {
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)//
+    public ApiResult<CustomerDto> updateCustomers(@PathParam("customerId") long customerId, CustomerDto customerDto ) {
         try {
             CustomerDto customerDtoReturn =  customerEjb.updateCustomer(customerId, customerDto);
-            return customerDtoReturn;
+            return new ApiResult<>(customerDtoReturn,"success", 200) ;
         } catch (Exception e) {
-            return null;
+            return new ApiResult<>(null,e.getMessage(), 500) ;
         }
     }
 
     @Path("/customer/{customerId}")
     @DELETE
-    @Produces("text/json")//
-    public boolean deleteCustomers(@PathParam("customerId") long customerId) {
+    @Produces(MediaType.APPLICATION_JSON)//
+    public ApiResult<Boolean> deleteCustomers(@PathParam("customerId") long customerId) {
          try {
             boolean success =  customerEjb.deleteCustomer(customerId);
-            return success;
+            return new ApiResult<>(true,"success", 200) ;
         } catch (Exception e) {
-            return false;
+            return new ApiResult<>(false,e.getMessage(), 500) ;
         }
     }
 

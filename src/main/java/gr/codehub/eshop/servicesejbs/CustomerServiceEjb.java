@@ -1,11 +1,13 @@
 package gr.codehub.eshop.servicesejbs;
 
 import gr.codehub.eshop.dto.CustomerDto;
+import gr.codehub.eshop.exception.CustomerException;
 import gr.codehub.eshop.model.Customer;
 import gr.codehub.eshop.repositoryejb.CustomerRepositoryEjb;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,7 +19,10 @@ public class CustomerServiceEjb {
     public CustomerDto saveCustomer(CustomerDto customerDto) throws Exception{
 
         //validation of customerDto
-
+        if (customerDto == null){
+            throw new CustomerException("null customerDto");
+        }
+         customerDto.setRegDate(LocalDate.now());
         Customer customer = customerDto.createCustomer();
         customerRepositoryEjb.saveCustomer(customer);
         CustomerDto returnCustomerDto = new CustomerDto(customer);
