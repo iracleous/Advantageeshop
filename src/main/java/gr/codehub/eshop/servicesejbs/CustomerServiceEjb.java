@@ -43,4 +43,15 @@ public class CustomerServiceEjb {
     }
 
 
+    public CustomerDto updateCustomer(long customerId, CustomerDto customerDto) throws Exception{
+        Customer customer = customerRepositoryEjb.getCustomer(customerId);
+        customer.setEmail(customerDto.getEmail());
+        return new CustomerDto(customerRepositoryEjb.saveCustomer( customer));
+    }
+
+    public boolean deleteCustomer(long customerId) throws Exception {
+        Customer customer = customerRepositoryEjb.getCustomer(customerId);
+
+        return customerRepositoryEjb.deleteCustomer(customer);
+    }
 }
