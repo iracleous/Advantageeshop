@@ -1,9 +1,9 @@
-package gr.codehub.eshop.servicesejbs;
+package gr.codehub.eshop.service;
 
 import gr.codehub.eshop.dto.CustomerDto;
 import gr.codehub.eshop.exception.CustomerException;
 import gr.codehub.eshop.model.Customer;
-import gr.codehub.eshop.repositoryejb.CustomerRepositoryEjb;
+import gr.codehub.eshop.repository.CustomerRepository;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Stateless
-public class CustomerServiceEjb {
+public class CustomerService {
    @EJB
-    private CustomerRepositoryEjb customerRepositoryEjb;
+    private CustomerRepository customerRepositoryEjb;
 
     public CustomerDto saveCustomer(CustomerDto customerDto) throws Exception{
 

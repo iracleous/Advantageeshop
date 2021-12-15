@@ -17,7 +17,6 @@ public class Cart {
 
     private LocalDate date;
 
-
     @Transient
     private double cost;
 

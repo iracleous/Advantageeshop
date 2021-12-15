@@ -2,7 +2,7 @@ package gr.codehub.eshop.resources;
 
 import gr.codehub.eshop.dto.ApiResult;
 import gr.codehub.eshop.dto.CustomerDto;
-import gr.codehub.eshop.servicesejbs.CustomerServiceEjb;
+import gr.codehub.eshop.service.CustomerService;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
@@ -13,7 +13,7 @@ import java.util.List;
 public class CustomerResource {
 
     @EJB
-    private CustomerServiceEjb customerEjb;
+    private CustomerService customerEjb;
 
     @Path("/ping")
     @GET

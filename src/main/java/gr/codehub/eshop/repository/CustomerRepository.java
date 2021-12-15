@@ -1,7 +1,6 @@
-package gr.codehub.eshop.repositoryejb;
+package gr.codehub.eshop.repository;
 
 
-import gr.codehub.eshop.dto.CustomerDto;
 import gr.codehub.eshop.model.Customer;
 
 import javax.ejb.Stateless;
@@ -10,7 +9,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Stateless
-public class CustomerRepositoryEjb {
+public class CustomerRepository {
 
     @PersistenceContext(unitName = "Persistence")
     private EntityManager entityManager;
