@@ -7,7 +7,7 @@
 <body>
     <h1><%= "Hello World!" %></h1>
     <br/>
-    <h1><%= "Basic menu" %></h1>
+    <h1><%= "Basic menugi" %></h1>
     <br/>
     <a href="http://localhost:8080/eshop-1.0-SNAPSHOT/api/ping">Hello World</a><br />
     <a href="http://localhost:8080/eshop-1.0-SNAPSHOT/api/customer"> Get all customers</a> <br />
