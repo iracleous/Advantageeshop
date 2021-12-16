@@ -1,39 +1,14 @@
 package gr.codehub.eshop.repository;
 
-
 import gr.codehub.eshop.model.Customer;
 
-import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
-@Stateless
-public class CustomerRepository {
+public interface CustomerRepository {
 
-    @PersistenceContext(unitName = "Persistence")
-    private EntityManager entityManager;
+     Customer saveCustomer(Customer customer) throws Exception ;
+     Customer getCustomer(long custId) throws Exception ;
+     List<Customer> getCustomer(int pageSize, int pageCount) throws Exception ;
+     boolean deleteCustomer(Customer customer) throws Exception ;
 
-    public Customer saveCustomer(Customer customer) throws Exception {
-        entityManager.persist(customer);
-        return customer;
-    }
-
-    public Customer getCustomer(long custId) throws Exception {
-        return entityManager.find(Customer.class, custId);
-    }
-
-    public List<Customer> getCustomer() throws Exception {
-
-        //to
-        //paging the results
-        return entityManager
-                .createQuery("Select c from Customer c ", Customer.class)
-                .getResultList();
-    }
-
-    public boolean deleteCustomer(Customer customer) throws Exception {
-        entityManager.remove(customer);
-        return true;
-    }
 }

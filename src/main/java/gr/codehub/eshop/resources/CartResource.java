@@ -4,6 +4,7 @@ package gr.codehub.eshop.resources;
 import gr.codehub.eshop.dto.ApiResult;
 import gr.codehub.eshop.dto.CartDto;
 import gr.codehub.eshop.service.CartService;
+import gr.codehub.eshop.service.impl.CartServiceImpl;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
@@ -18,7 +19,7 @@ POST customer/{customerId}/cart/{cartId}
  */
 
     @EJB
-    private CartService cartService;
+    private CartServiceImpl cartService;
 
     @Path("/customer/{customerId}/cart")
     @POST

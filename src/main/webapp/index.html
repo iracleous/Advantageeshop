@@ -2,17 +2,29 @@
 <html>
 <head>
     <title>Advantage ecommerce</title>
+    <link rel="stylesheet" href="./css/style.css" />
+
 </head>
 <body>
-    <h1>Hello World!</h1>
-    <br/>
-    <h2>Basic menu></h2>
-    <br/>
-    <a href="http://localhost:8080/eshop-1.0-SNAPSHOT/api/ping">Hello World</a><br />
-    <a href="http://localhost:8080/eshop-1.0-SNAPSHOT/api/customer"> Get all customers</a> <br />
+    <img src="./images/codehub.png">
+
+
+
+    <ul class="nav">
+        <li>Advantage Ecommerce App</li>
+        <li class="navlink"><a href="./api/ping">Ping</a></li>
+        <li class="navlink"><a href="./api/customer">Customers</a></li>
+        <li class="navlink"><a href="#">Customer details</a></li>
+        <li class="navlink"><a href="./CreateCustomer.html">Create a customer</a></li>
+    </ul>
+
+
+
+<!--    http://localhost:8080/eshop-1.0-SNAPSHOT/api/customer-->
+
     <input type="number" id="customerId" placehoder="customerId"> <button onclick="getCustomer()">Get a customers</button>
     <br />
-    <a href="http://localhost:8080/eshop-1.0-SNAPSHOT/CreateCustomer.html"> Create a customer</a> <br />
+    <a href="http://localhost:8080/eshop-1.0-SNAPSHOT/"> </a> <br />
 
 <script>
     function getCustomer(){

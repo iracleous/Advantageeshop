@@ -3,6 +3,8 @@ package gr.codehub.eshop.resources;
 import gr.codehub.eshop.dto.ApiResult;
 import gr.codehub.eshop.dto.CustomerDto;
 import gr.codehub.eshop.service.CustomerService;
+import gr.codehub.eshop.service.impl.CustomerServiceImpl;
+
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
@@ -13,7 +15,7 @@ import java.util.List;
 public class CustomerResource {
 
     @EJB
-    private CustomerService customerEjb;
+    private CustomerServiceImpl customerEjb;
 
     @Path("/ping")
     @GET
@@ -25,9 +27,11 @@ public class CustomerResource {
     @Path("/customer")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public ApiResult<List<CustomerDto>> getCustomer() {
+    public ApiResult<List<CustomerDto>> getCustomer(@QueryParam("pageSize")   Integer pageSize,  @QueryParam("pageCount")  Integer pageCount) {
         try {
-            List<CustomerDto> customers =   customerEjb.getCustomer();
+            if (pageSize== null) pageSize=10;
+            if (pageCount== null) pageCount=1;
+             List<CustomerDto> customers =   customerEjb.getCustomer(pageSize, pageCount);
              return  new ApiResult<>(customers,"success", 200) ;
         } catch (Exception e) {
             return new ApiResult<>(null,e.getMessage(), 500) ;
