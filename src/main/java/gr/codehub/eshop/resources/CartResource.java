@@ -19,7 +19,7 @@ POST customer/{customerId}/cart/{cartId}
  */
 
     @EJB
-    private CartServiceImpl cartService;
+    private CartService cartService;
 
     @Path("/customer/{customerId}/cart")
     @POST
@@ -44,5 +44,16 @@ POST customer/{customerId}/cart/{cartId}
         }
     }
 
-
+//    POST customer/{id}/cart/{cartId}
+    @Path("customer/{customerId}/cart/{cartId}")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public ApiResult<CartDto> getCart(@PathParam("customerId") long customerId, @PathParam("cartId") long cartId, CartDto cartDto) {
+        try {
+            return new ApiResult<>(cartService.addProductToCart(customerId, cartId, cartDto.getProductIds()),"success", 200)   ;
+        } catch (Exception e) {
+            return new ApiResult<>(null,e.getMessage(), 500) ;
+        }
+    }
 }

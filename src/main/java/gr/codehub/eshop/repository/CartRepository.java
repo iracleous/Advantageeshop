@@ -9,4 +9,5 @@ public interface CartRepository {
      Cart getCart(long cartId) throws Exception ;
      List<Cart> getCustomerCarts(long customerId) throws Exception ;
      boolean deleteCart(Cart cart) throws Exception;
+     Cart findCart(long cartId);
 }

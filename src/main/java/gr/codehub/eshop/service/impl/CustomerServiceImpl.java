@@ -3,7 +3,7 @@ package gr.codehub.eshop.service.impl;
 import gr.codehub.eshop.dto.CustomerDto;
 import gr.codehub.eshop.exception.CustomerException;
 import gr.codehub.eshop.model.Customer;
-import gr.codehub.eshop.repository.impl.CustomerRepositoryImpl;
+import gr.codehub.eshop.repository.CustomerRepository;
 import gr.codehub.eshop.service.CustomerService;
 
 import javax.ejb.EJB;
@@ -13,9 +13,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Stateless
-public class CustomerServiceImpl   {
+public class CustomerServiceImpl implements CustomerService {
    @EJB
-    private CustomerRepositoryImpl customerRepositoryEjb;
+    private CustomerRepository customerRepository;
 
     public CustomerDto saveCustomer(CustomerDto customerDto) throws Exception{
 
@@ -25,13 +25,13 @@ public class CustomerServiceImpl   {
         }
          customerDto.setRegDate(LocalDate.now());
         Customer customer = customerDto.createCustomer();
-        customerRepositoryEjb.saveCustomer(customer);
+        customerRepository.saveCustomer(customer);
         CustomerDto returnCustomerDto = new CustomerDto(customer);
         return returnCustomerDto;
     }
 
     public CustomerDto getCustomer(long custId) throws Exception{
-        Customer customer = customerRepositoryEjb.getCustomer(custId);
+        Customer customer = customerRepository.getCustomer(custId);
 
         //validation of the received data from db
 
@@ -41,7 +41,7 @@ public class CustomerServiceImpl   {
 
     public List<CustomerDto> getCustomer(int pageSize,  int pageCount) throws Exception{
 
-        return   customerRepositoryEjb
+        return   customerRepository
                 .getCustomer( pageSize,  pageCount)
                 .stream()
                 .map(CustomerDto::new)
@@ -50,14 +50,14 @@ public class CustomerServiceImpl   {
 
 
     public CustomerDto updateCustomer(long customerId, CustomerDto customerDto) throws Exception{
-        Customer customer = customerRepositoryEjb.getCustomer(customerId);
+        Customer customer = customerRepository.getCustomer(customerId);
         customer.setEmail(customerDto.getEmail());
-        return new CustomerDto(customerRepositoryEjb.saveCustomer( customer));
+        return new CustomerDto(customerRepository.saveCustomer( customer));
     }
 
     public boolean deleteCustomer(long customerId) throws Exception {
-        Customer customer = customerRepositoryEjb.getCustomer(customerId);
+        Customer customer = customerRepository.getCustomer(customerId);
 
-        return customerRepositoryEjb.deleteCustomer(customer);
+        return customerRepository.deleteCustomer(customer);
     }
 }

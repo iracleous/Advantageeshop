@@ -17,5 +17,5 @@ public class CartDto {
     private String customerName;
     private Long customerId;
 
-    private List<String> productNames;
+    private List<Integer> productIds;
  }

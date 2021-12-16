@@ -10,7 +10,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Stateless
-public class CartRepositoryImpl   {
+public class CartRepositoryImpl  implements  CartRepository {
 
     @PersistenceContext(unitName = "Persistence")
     private EntityManager entityManager;

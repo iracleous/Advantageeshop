@@ -3,7 +3,6 @@ package gr.codehub.eshop.resources;
 import gr.codehub.eshop.dto.ApiResult;
 import gr.codehub.eshop.dto.CustomerDto;
 import gr.codehub.eshop.service.CustomerService;
-import gr.codehub.eshop.service.impl.CustomerServiceImpl;
 
 
 import javax.ejb.EJB;
@@ -15,7 +14,7 @@ import java.util.List;
 public class CustomerResource {
 
     @EJB
-    private CustomerServiceImpl customerEjb;
+    private CustomerService customerService;
 
     @Path("/ping")
     @GET
@@ -31,7 +30,7 @@ public class CustomerResource {
         try {
             if (pageSize== null) pageSize=10;
             if (pageCount== null) pageCount=1;
-             List<CustomerDto> customers =   customerEjb.getCustomer(pageSize, pageCount);
+             List<CustomerDto> customers =   customerService.getCustomer(pageSize, pageCount);
              return  new ApiResult<>(customers,"success", 200) ;
         } catch (Exception e) {
             return new ApiResult<>(null,e.getMessage(), 500) ;
@@ -44,7 +43,7 @@ public class CustomerResource {
     @Produces(MediaType.APPLICATION_JSON)
     public ApiResult<CustomerDto> getCustomers(CustomerDto customer) {
         try {
-            return new ApiResult<>(customerEjb.saveCustomer(customer),"success", 200)   ;
+            return new ApiResult<>(customerService.saveCustomer(customer),"success", 200)   ;
         } catch (Exception e) {
             return new ApiResult<>(null,e.getMessage(), 500) ;
         }
@@ -56,7 +55,7 @@ public class CustomerResource {
     public ApiResult<CustomerDto> getCustomers(@PathParam("customerId")  long customerId) {
         try {
 
-            CustomerDto customerDto =  customerEjb.getCustomer(customerId);
+            CustomerDto customerDto =  customerService.getCustomer(customerId);
             return new ApiResult<>(customerDto,"success", 200) ;
         } catch (Exception e) {
             return new ApiResult<>(null,e.getMessage(), 500) ;
@@ -70,7 +69,7 @@ public class CustomerResource {
     @Produces(MediaType.APPLICATION_JSON)//
     public ApiResult<CustomerDto> updateCustomers(@PathParam("customerId") long customerId, CustomerDto customerDto ) {
         try {
-            CustomerDto customerDtoReturn =  customerEjb.updateCustomer(customerId, customerDto);
+            CustomerDto customerDtoReturn =  customerService.updateCustomer(customerId, customerDto);
             return new ApiResult<>(customerDtoReturn,"success", 200) ;
         } catch (Exception e) {
             return new ApiResult<>(null,e.getMessage(), 500) ;
@@ -82,7 +81,7 @@ public class CustomerResource {
     @Produces(MediaType.APPLICATION_JSON)//
     public ApiResult<Boolean> deleteCustomers(@PathParam("customerId") long customerId) {
          try {
-            boolean success =  customerEjb.deleteCustomer(customerId);
+            boolean success =  customerService.deleteCustomer(customerId);
             return new ApiResult<>(true,"success", 200) ;
         } catch (Exception e) {
             return new ApiResult<>(false,e.getMessage(), 500) ;
