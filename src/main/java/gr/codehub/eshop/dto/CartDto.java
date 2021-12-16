@@ -25,6 +25,7 @@ public class CartDto {
     private Long customerId;
 
     private List<Long> productIds;
+    private List<ProductDto> products;
  }
 
 

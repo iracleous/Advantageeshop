@@ -2,6 +2,7 @@ package gr.codehub.eshop.service.impl;
 
 
 import gr.codehub.eshop.dto.CartDto;
+import gr.codehub.eshop.dto.ProductDto;
 import gr.codehub.eshop.model.Cart;
 import gr.codehub.eshop.model.Customer;
 import gr.codehub.eshop.model.Product;
@@ -16,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -51,6 +53,15 @@ public class CartServiceImpl  implements CartService {
         cartDto.setId(cart.getId());
         cartDto.setDate(cart.getDate());
         cartDto.setCustomerId(cart.getCustomer().getId());
+        List<ProductDto> products = new ArrayList<>();
+        cartDto.setProducts(products);
+
+         for (ProductCart productCart:cart.getProducts()){
+            ProductDto productDto = new ProductDto();
+            productDto.setName(productCart.getProduct().getName());
+            products.add(productDto);
+        }
+
         return cartDto;
     }
 
