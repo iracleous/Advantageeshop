@@ -49,7 +49,9 @@ POST customer/{customerId}/cart/{cartId}
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public ApiResult<CartDto> getCart(@PathParam("customerId") long customerId, @PathParam("cartId") long cartId, CartDto cartDto) {
+    public ApiResult<CartDto> aadProduct(@PathParam("customerId") long customerId,
+                                         @PathParam("cartId") long cartId,
+                                         CartDto cartDto) {
         try {
             return new ApiResult<>(cartService.addProductToCart(customerId, cartId, cartDto.getProductIds()),"success", 200)   ;
         } catch (Exception e) {

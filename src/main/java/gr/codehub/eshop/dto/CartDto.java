@@ -9,6 +9,13 @@ import javax.persistence.Transient;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ *
+ * Expected json
+ * { "productIds": [1,2,2]}
+ */
+
+
 @Data
 public class CartDto {
     private Long id;
@@ -17,5 +24,7 @@ public class CartDto {
     private String customerName;
     private Long customerId;
 
-    private List<Integer> productIds;
+    private List<Long> productIds;
  }
+
+

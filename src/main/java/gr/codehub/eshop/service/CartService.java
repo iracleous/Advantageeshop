@@ -10,5 +10,5 @@ import java.util.List;
 public interface CartService {
       CartDto createCart(long customerId) throws Exception;
       CartDto getCart(long customerId, long cartId) throws Exception ;
-      CartDto addProductToCart(long customerId, long cartId, List<Integer> productIds) throws Exception;
+      CartDto addProductToCart(long customerId, long cartId, List<Long> productIds) throws Exception;
 }
