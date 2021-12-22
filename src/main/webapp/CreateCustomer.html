@@ -9,18 +9,29 @@
 
 
 
-    <form onSubmit="return false">
-      <input type="text" name="name" id = "name" placeholder="name"><br />
-      <input type="number" name="age" id="age" placeholder="age" ><br />
-      <input type="text" name="email" id="email" placeholder="email"><br />
-         <button type="button" onclick="sendDataToServer()">Create customer</button>
-    </form>
+<form onSubmit="return false">
+    <input type="text" name="name" id = "name" placeholder="name"><br />
+    <input type="number" name="age" id="age" placeholder="age" ><br />
+    <input type="text" name="email" id="email" placeholder="email"><br />
+
+
+    <button type="button" onclick="sendDataToServer()">Create customer</button>
+</form>
 
 <div id="results"></div>
 
 <script>
     function sendDataToServer() {
 
+
+
+        username =  localStorage.getItem("username"  );
+        password = localStorage.getItem("password"  );
+
+if (username === null || password === null){
+    alert("You are not logged");
+    window.open("./login.html", "_self");
+}
         var stringData = '{"name":"' + document.getElementById("name").value + '",' +
             '"age":' + document.getElementById("age").value + ',' +
             '"email":"' + document.getElementById("email").value + '"' +
@@ -39,6 +50,8 @@
         };
         xmlhttp.open(method, url, true);
         xmlhttp.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+        xmlhttp.setRequestHeader("username", username);
+        xmlhttp.setRequestHeader("password", password);
         xmlhttp.send(stringData);
     }
 </script>

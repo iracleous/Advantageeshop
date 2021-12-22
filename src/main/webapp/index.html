@@ -14,8 +14,10 @@
         <li>Advantage Ecommerce App</li>
         <li class="navlink"><a href="./api/ping">Ping</a></li>
         <li class="navlink"><a href="./api/customer">Customers</a></li>
-        <li class="navlink"><a href="#">Customer details</a></li>
+        <li class="navlink"><a href="./login.html">login</a></li>
         <li class="navlink"><a href="./CreateCustomer.html">Create a customer</a></li>
+
+        <li class="navlink"><a href="#" onclick="logout()">logout</a></li>
     </ul>
 
 
@@ -31,6 +33,13 @@
         url = "http://localhost:8080/eshop-1.0-SNAPSHOT/api/customer/" + document.getElementById("customerId").value
         window.open(url,"_self");
     }
+
+    function logout(){
+        localStorage.removeItem("username")
+        localStorage.removeItem("password")
+        alert("you are unlogged")
+    }
+
 
 </script>
 

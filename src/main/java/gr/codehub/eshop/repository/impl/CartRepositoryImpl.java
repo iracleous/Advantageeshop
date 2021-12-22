@@ -39,7 +39,7 @@ public class CartRepositoryImpl  implements  CartRepository {
     //   return entityManager.find(Cart.class, cartId);
 
         return entityManager
-                .createQuery("Select c from Cart c where c.id= :cartId", Cart.class)
+                .createQuery("Select c from Cart c   where c.id= :cartId", Cart.class)
                 .setParameter("cartId", cartId)
                 .getSingleResult();
 

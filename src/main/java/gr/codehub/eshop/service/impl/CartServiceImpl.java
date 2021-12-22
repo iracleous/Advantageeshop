@@ -33,8 +33,6 @@ public class CartServiceImpl  implements CartService {
     @EJB
     private ProductRepository productRepository;
 
-
-
     public CartDto createCart(long customerId) throws Exception{
         log.info("cart creation for user " + customerId);
         Cart cart = new Cart();
@@ -44,7 +42,6 @@ public class CartServiceImpl  implements CartService {
         cartRepository.saveCart(cart);
         return null;
     }
-
 
     public CartDto getCart(long customerId, long cartId) throws Exception {
         CartDto cartDto = new CartDto();
@@ -61,17 +58,13 @@ public class CartServiceImpl  implements CartService {
             productDto.setName(productCart.getProduct().getName());
             products.add(productDto);
         }
-
         return cartDto;
     }
 
     public CartDto addProductToCart(long customerId, long cartId, List<Long> productIds) throws Exception{
-
         Cart cart = cartRepository.getCart(cartId);
-
         for(Long productId :productIds){
             Product product = productRepository.findProduct(productId) ;
-
             ProductCart productCart = new ProductCart();
             productCart.setCart(cart);
             productCart.setProduct(product);

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <form onSubmit="return false">
+
+       <div id = "credentials">
+        Credentials
+        <input type="text" name = "username" id = "username"  ><br />
+        <input type="password" name = "password" id = "password"  ><br />
+        </div>
+         <button type="button" onclick="sendDataToServer()">Create customer</button>
+    </form>
+
+<div id="results"></div>
+
+<script>
+    function sendDataToServer() {
+
+       localStorage.setItem("username", document.getElementById("username").value );
+       localStorage.setItem("password", document.getElementById("password").value );
+
+
+        var url = "http://localhost:8080/eshop-1.0-SNAPSHOT/api/login"
+        var method = "POST"
+
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+
+                returnValue = this.responseText
+                document.getElementById("results").innerHTML = JSON.stringify(returnValue);
+            }
+        };
+        xmlhttp.open(method, url, true);
+        xmlhttp.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+        xmlhttp.setRequestHeader("username", document.getElementById("username").value);
+        xmlhttp.setRequestHeader("password", document.getElementById("password").value);
+        xmlhttp.send();
+    }
+</script>
+
+
+
+
+</body>
+</html>

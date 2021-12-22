@@ -1,6 +1,5 @@
 package gr.codehub.eshop.dto;
 
-import gr.codehub.eshop.model.Customer;
 import gr.codehub.eshop.model.Employee;
 
 import java.time.LocalDate;

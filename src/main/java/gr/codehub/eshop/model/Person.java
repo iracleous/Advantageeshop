@@ -18,6 +18,6 @@ public class Person {
     private String address;
     private LocalDate regDate;
     private Integer age;
-    private String Email;
+    private String email;
     private String password;
 }

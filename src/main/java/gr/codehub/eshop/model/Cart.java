@@ -20,11 +20,12 @@ public class Cart {
     @Transient
     private double cost;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn
     private Customer customer;
 
-    @OneToMany(mappedBy = "cart")
-    private List<ProductCart> products;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cart")
+    private List<ProductCart> products = new java.util.ArrayList<>();
 
 
 }

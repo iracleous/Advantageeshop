@@ -11,4 +11,6 @@ public interface CustomerRepository {
      List<Customer> getCustomer(int pageSize, int pageCount) throws Exception ;
      boolean deleteCustomer(Customer customer) throws Exception ;
 
+    Customer login(String email, String password)  throws Exception;
+
 }

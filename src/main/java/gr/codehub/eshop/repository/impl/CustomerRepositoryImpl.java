@@ -7,6 +7,7 @@ import gr.codehub.eshop.repository.CustomerRepository;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Stateless
@@ -15,8 +16,12 @@ public class CustomerRepositoryImpl  implements  CustomerRepository{
     @PersistenceContext(unitName = "Persistence")
     private EntityManager entityManager;
 
+    @Transactional
     public Customer saveCustomer(Customer customer) throws Exception {
-        entityManager.persist(customer);
+
+
+        entityManager.remove(customer);
+
         return customer;
     }
 
@@ -38,5 +43,13 @@ public class CustomerRepositoryImpl  implements  CustomerRepository{
     public boolean deleteCustomer(Customer customer) throws Exception {
         entityManager.remove(customer);
         return true;
+    }
+
+    @Override
+    public Customer login(String email, String password) throws Exception{
+        return entityManager.createQuery(" Select c from Customer c where c.email = :email and c.password= :password", Customer.class)
+                .setParameter("email", email)
+                .setParameter("password", password)
+                .getSingleResult();
     }
 }

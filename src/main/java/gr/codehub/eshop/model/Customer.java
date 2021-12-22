@@ -2,10 +2,7 @@ package gr.codehub.eshop.model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 
@@ -15,10 +12,11 @@ import java.util.List;
 public class Customer  extends Person{
 
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(fetch = javax.persistence.FetchType.LAZY, mappedBy = "customer")
     private List<Cart> carts = new java.util.ArrayList<>();
 
 
-    @ManyToOne
+    @ManyToOne(fetch = javax.persistence.FetchType.LAZY)
+    @JoinColumn
     private Employee employee;
 }

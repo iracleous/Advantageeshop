@@ -11,6 +11,6 @@ import java.util.List;
 @Data
 public class Employee  extends Person {
 
-    @OneToMany(mappedBy = "employee")
-    private List<Customer> customers;
+    @OneToMany(fetch = javax.persistence.FetchType.LAZY, mappedBy = "employee")
+    private List<Customer> customers = new java.util.ArrayList<>();
 }

@@ -17,9 +17,11 @@ public class ProductCart {
     private int quantity;
     private double discount;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn
     private Cart cart;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn
     private Product product;
 
 

@@ -19,8 +19,8 @@ public class Product {
     private double price;
 
 
-    @OneToMany(mappedBy = "product")
-    private List<ProductCart> carts;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+    private List<ProductCart> carts = new java.util.ArrayList<>();
 
 
 

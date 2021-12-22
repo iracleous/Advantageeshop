@@ -2,11 +2,17 @@ package gr.codehub.eshop.resources;
 
 import gr.codehub.eshop.dto.ApiResult;
 import gr.codehub.eshop.dto.CustomerDto;
+import gr.codehub.eshop.security.Identifier;
 import gr.codehub.eshop.service.CustomerService;
 
 
+import javax.annotation.Resource;
 import javax.ejb.EJB;
+import javax.security.auth.message.MessageInfo;
+import javax.security.enterprise.authentication.mechanism.http.HttpMessageContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
@@ -19,7 +25,11 @@ public class CustomerResource {
     @Path("/ping")
     @GET
     @Produces("text/plain")
-    public String hello() {
+    public String hello(@Context HttpServletRequest req) {
+
+        if (req.isUserInRole("user")) {
+            return "Hello user";
+        }
         return "Hello, World!";
     }
 
@@ -37,11 +47,25 @@ public class CustomerResource {
         }
     }
 
+@Resource
+private HttpMessageContext req;
+
     @Path("/customer")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public ApiResult<CustomerDto> getCustomers(CustomerDto customer) {
+    public ApiResult<CustomerDto> getCustomers(CustomerDto customer ) {
+    MessageInfo mi = req
+            .getMessageInfo();
+
+    String   value =    mi .getMap()
+            .get("k1")
+            .toString();
+        if ( value!=null && value.equals("v1")) {
+               return new ApiResult<>(null,"authenticated", 200) ;
+        }
+
+
         try {
             return new ApiResult<>(customerService.saveCustomer(customer),"success", 200)   ;
         } catch (Exception e) {
